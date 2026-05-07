@@ -1,0 +1,21 @@
+{
+  "assistant_name": "FreshAI",
+  "version": "1.0.0",
+  "creator": "krovixa",
+  "github_user": "lupsup39",
+  "settings": {
+    "theme": "minimalist",
+    "framework_priority": ["Next.js", "React", "Tailwind CSS"],
+    "styling_standard": "Utility-first (Tailwind)",
+    "git_flow": {
+      "auto_commit": true,
+      "commit_prefix": "🍃 fresh:",
+      "default_branch": "main"
+    }
+  },
+  "rules": [
+    "Prioritize accessibility (a11y) in web designs.",
+    "Use functional components and Hooks for React.",
+    "Always check for mobile responsiveness."
+  ]
+}
