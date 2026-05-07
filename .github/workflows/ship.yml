@@ -12,24 +12,18 @@ jobs:
       - name: 📥 Checkout Source
         uses: actions/checkout@v4
 
-      - name: 🏗️ Prepare Webpage Files
-        run: |
-          mkdir -p putfileshere
-          # Syncing root files into the staging area, ignoring Git junk
-          rsync -av --exclude='.git/' --exclude='.github/'
-          echo "Files staged for src delivery."
-
       - name: 🚀 Push to FreshAI Repository
         uses: nkoppel/push-files-to-another-repository@v1.1.4
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-files: 'putfileshere/'
+          # Use '.' to say "everything in the current root"
+          source-files: '.' 
           destination-username: 'luauy'
           destination-repository: 'FreshAI'
-          # This tells the action to put everything inside the 'src' folder
+          # Where it lands in the destination
           destination-directory: 'src' 
           destination-branch: 'main'
           commit-email: 'terencecawleynew@gmail.com'
           commit-username: 'luauy'
-          commit-message: '🍃 FreshAI: Automated deploy to src/'
+          commit-message: '🍃 FreshAI: Direct ship from root to src/'
