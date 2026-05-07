@@ -8,5 +8,6 @@
   "todo": [
     "Implement drag-and-drop for design sketches",
     "Optimize GitHub push latency"
+    "Optimize and read Github Repos"
   ]
 }
