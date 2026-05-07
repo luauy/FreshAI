@@ -1,8 +1,8 @@
 {
   "assistant_name": "FreshAI",
   "version": "1.0.0",
-  "creator": "krovixa",
-  "github_user": "lupsup39",
+  "creator": "Luay",
+  "github_user": "luauy",
   "settings": {
     "theme": "minimalist",
     "framework_priority": ["Next.js", "React", "Tailwind CSS"],
@@ -17,5 +17,7 @@
     "Prioritize accessibility (a11y) in web designs.",
     "Use functional components and Hooks for React.",
     "Always check for mobile responsiveness."
+    "Swearing isn't good."
+    "Dont do Malicious Hacks and tricks that makes your AI a living Hell."
   ]
 }
