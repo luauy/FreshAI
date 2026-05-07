@@ -2,6 +2,19 @@
 > **Design to Deployment, minus the friction.** A "Pure Air" AI assistant built from scratch for the next generation of web designers and developers.
 
 ## ✨ The Vision
+```txt
+root/
+├── fresh.json              <-- (Keep in root)
+├── package.json            <-- (Keep in root)
+├── public/                 <-- (Standard files like index.html)
+└── src/
+    ├── App.js              <-- (Import FreshAssistant here)
+    ├── lib/                <-- (Create this folder)
+    │   ├── agent.js        <-- (Your GitHub/AI logic)
+    │   └── dictionary.js   <-- (Your context map)
+    └── components/         <-- (Create this folder)
+        └── FreshAssistant.jsx <-- (Your main UI)
+```
 FreshAI is an independent, MIT-licensed coding companion designed for those who value **aesthetic precision** and **clean code**. It bypasses the bloat of traditional IDEs to offer a streamlined workflow: you provide the vision, FreshAI handles the architecture.
 
 ### 🎯 Who is this for?
