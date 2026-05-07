@@ -1,0 +1,13 @@
+{
+  "current_project": "FreshAI-Core",
+  "last_synced": "2026-05-07",
+  "active_components": [
+    "src/components/ChatInterface.jsx",
+    "src/lib/github-api.js"
+  ],
+  "todo": [
+    "Implement drag-and-drop for design sketches",
+    "Optimize GitHub push latency"
+    "Optimize and read Github Repos"
+  ]
+}
