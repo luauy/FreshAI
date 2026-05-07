@@ -1,9 +1,12 @@
-name: FreshAI Ship Sequence
+name: FreshAI Self-Ship Sequence
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
+
+permissions:
+  contents: write  # This is the "Pure Air" fix for the 403 error
 
 jobs:
   build-and-ship:
@@ -11,19 +14,21 @@ jobs:
     steps:
       - name: 📥 Checkout Source
         uses: actions/checkout@v4
-
-      - name: 🚀 Push to FreshAI Repository
-        uses: nkoppel/push-files-to-another-repository@v1.1.4
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          # Use '.' to say "everything in the current root"
-          source-files: '.' 
-          destination-username: 'luauy'
-          destination-repository: 'FreshAI'
-          # Where it lands in the destination
-          destination-directory: 'src' 
-          destination-branch: 'main'
-          commit-email: 'terencecawleynew@gmail.com'
-          commit-username: 'luauy'
-          commit-message: '🍃 FreshAI: Direct ship from root to src/'
+          persist-credentials: true
+
+      - name: 🏗️ Prepare Files
+        run: |
+          mkdir -p src
+          # This moves everything except the git folders into src
+          # so your repo stays organized.
+          rsync -av --exclude='.git/' --exclude='.github/' --exclude='src/' ./ src/
+          echo "Files moved to src directory."
+
+      - name: 🚀 Commit and Push
+        run: |
+          git config --global user.name "luauy"
+          git config --global user.email "terencecawleynew@gmail.com"
+          git add src/
+          git commit -m "🍃 FreshAI: Automated internal sync to src/" || echo "No changes to commit"
+          git push
