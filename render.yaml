@@ -1,0 +1,29 @@
+services:
+  # 1. The Backend Proxy (Handles GitHub OAuth & Writer Logic)
+  - type: web
+    name: fresh-ai-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: GITHUB_CLIENT_ID
+        sync: false # You'll set this manually in Render UI once
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      - key: NODE_ENV
+        value: production
+
+  # 2. The Frontend (The UI for your developers)
+  - type: static
+    name: fresh-ai-frontend
+    runtime: static
+    plan: free
+    buildCommand: npm run build
+    publishPath: build # or 'dist' if you use Vite
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          name: fresh-ai-api
+          type: web
+          property: host
