@@ -1,33 +1,32 @@
-// lib/agent.js
 import { Octokit } from "octokit";
-import { getProjectContext } from "./dictionary.js";
 
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-const context = getProjectContext();
+export const FreshAgent = {
+  // The 'If Yes' logic for writing to the user's repo
+  writeToRepo: async (token, repoDetails, path, content) => {
+    const octokit = new Octokit({ auth: token });
 
-export const shipCode = async (fileName, content, commitMessage) => {
-  console.log(`🍃 FreshAI is preparing to ship to ${context.dictionary.main_repo}...`);
+    try {
+      // 1. Get current file state
+      const { data } = await octokit.rest.repos.getContent({
+        owner: repoDetails.owner,
+        repo: repoDetails.name,
+        path: path,
+      });
 
-  try {
-    // 1. Get current file data (to update it)
-    const { data: currentFile } = await octokit.rest.repos.getContent({
-      owner: "lupsup39",
-      repo: "FreshAI",
-      path: fileName,
-    });
+      // 2. Push the AI-generated update
+      await octokit.rest.repos.createOrUpdateFileContents({
+        owner: repoDetails.owner,
+        repo: repoDetails.name,
+        path: path,
+        message: "🍃 FreshAI: Automated logic update",
+        content: btoa(content),
+        sha: data.sha,
+      });
 
-    // 2. Execute the Push
-    await octokit.rest.repos.createOrUpdateFileContents({
-      owner: "lupsup39",
-      repo: "FreshAI",
-      path: fileName,
-      message: `${context.settings.git_flow.commit_prefix} ${commitMessage}`,
-      content: Buffer.from(content).toString('base64'),
-      sha: currentFile.sha,
-    });
-
-    return "✅ Successfully shipped to GitHub!";
-  } catch (error) {
-    return `❌ Ship failed: ${error.message}`;
+      return { success: true };
+    } catch (error) {
+      console.error("Agent Error:", error);
+      return { success: false, error: error.message };
+    }
   }
 };
