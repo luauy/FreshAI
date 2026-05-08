@@ -1,5 +1,6 @@
 # 🍃 FreshAI
 > **Design to Deployment, minus the friction.** A "Pure Air" AI assistant built from scratch for the next generation of web designers and developers.
+>> note: this needs help so yeah, help now! please it's getting bugs istg
 
 ## ✨ The Vision
 ```txt
